@@ -1,0 +1,142 @@
+windowManager:
+    firstWindow:
+    loginWindow:
+    signupWindow:
+    logDataWindow:
+    mapWindow:
+
+<firstWindow>:
+    name: "First"
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: None, None
+        width: "150dp"
+        lenght: "100dp"
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+        Button:
+            text: "Login"
+            on_release: app.root.current = 'Login'
+        Button:
+            text: "Signup"
+            on_release: app.root.current = 'Signup'
+        Button:
+            text: "Guest User"
+            on_release: root.parent.current = 'Map'
+
+# GUI for the login window
+<loginWindow>:
+    name:"Login"
+    email : email
+    pwd : pwd
+    FloatLayout:
+        size: root.width, root.height
+        Label:
+            text : "EMAIL: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+        TextInput:
+            id : email
+            multiline :False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "PASSWORD: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : pwd
+            multiline :False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Button:
+            text : "Don't have an account? Create one"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.4}
+            on_release:
+                app.root.current = 'Signup'
+                root.manager.transition.direction = "left"
+        Button:
+            text : "LOGIN"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.2}
+            on_release:
+                root.validate()
+                root.manager.transition.direction = "up"
+
+# GUI for the signup window
+<signupWindow>:
+    name:"Signup"
+    name2 : name2
+    email : email
+    pwd : pwd
+    FloatLayout:
+        Label:
+            text : "NAME: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+        TextInput:
+            id : name2
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "EMAIL: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : email
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Label:
+            text : "PASSWORD: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.5}
+        TextInput:
+            id : pwd
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.5}
+        Button:
+            text : "Already have an account? Log in"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.35}
+            on_release:
+                app.root.current = 'Login'
+                root.manager.transition.direction = "right"
+        Button:
+            text : "SUBMIT"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.20}
+            on_press :
+                root.signupbtn()
+                root.manager.transition.direction = "right"
+
+# GUI to show validation result
+<logDataWindow>:
+    name: "Logdata"
+    info : info
+    FloatLayout:
+        Label:
+            id : info
+            size_hint : 0.8, 0.2
+            pos_hint : {"x" : 0.15, "top" : 0.8}
+            text : "SUCCESSFULLY LOGGED IN"
+        Button:
+            text : "Next"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.55}
+            on_press:
+                root.manager.transition.direction = "down"
+
+<mapWindow>:
+    name: "Map"
+
+# GUI for pop up window
+<P>:
+    Label:
+        text : "Please enter valid information"
+        size_hint : 0.2, 0.1
+        pos_hint : {"x" : 0.3, "top" : 0.8}
