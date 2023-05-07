@@ -1,39 +1,20 @@
-windowManager:
-    firstWindow:
-    loginWindow:
-    signupWindow:
+<WindowManager>:
+    ParentScreen:
+    LoginScreen:
+    SignupScreen:
     logDataWindow:
-    mapWindow:
-
-<firstWindow>:
-    name: "First"
-
-    BoxLayout:
-        orientation: "vertical"
-        size_hint: None, None
-        width: "150dp"
-        lenght: "100dp"
-        pos_hint: {"center_x": .5, "center_y": .5}
-
-        Button:
-            text: "Login"
-            on_release: app.root.current = 'Login'
-        Button:
-            text: "Signup"
-            on_release: app.root.current = 'Signup'
-        Button:
-            text: "Guest User"
-            on_release: root.parent.current = 'Map'
+    MainScreen:
 
 # GUI for the login window
-<loginWindow>:
-    name:"Login"
+<LoginScreen>:
+    name:"login"
     email : email
     pwd : pwd
     FloatLayout:
         size: root.width, root.height
         Label:
             text : "EMAIL: "
+            font_color: "brown"
             size_hint : 0.2, 0.1
             pos_hint : {"x":0.25, "top":0.9}
         TextInput:
@@ -55,7 +36,7 @@ windowManager:
             size_hint : 0.4, 0.1
             pos_hint : {"x" : 0.33, "top" : 0.4}
             on_release:
-                app.root.current = 'Signup'
+                app.root.current = 'signup'
                 root.manager.transition.direction = "left"
         Button:
             text : "LOGIN"
@@ -66,8 +47,8 @@ windowManager:
                 root.manager.transition.direction = "up"
 
 # GUI for the signup window
-<signupWindow>:
-    name:"Signup"
+<SignupScreen>:
+    name:"signup"
     name2 : name2
     email : email
     pwd : pwd
@@ -104,7 +85,7 @@ windowManager:
             size_hint : 0.4, 0.1
             pos_hint : {"x" : 0.33, "top" : 0.35}
             on_release:
-                app.root.current = 'Login'
+                app.root.current = 'login'
                 root.manager.transition.direction = "right"
         Button:
             text : "SUBMIT"
@@ -129,14 +110,8 @@ windowManager:
             size_hint : 0.4, 0.1
             pos_hint : {"x" : 0.33, "top" : 0.55}
             on_press:
+                app.root.current = 'main'
                 root.manager.transition.direction = "down"
 
-<mapWindow>:
-    name: "Map"
-
-# GUI for pop up window
-<P>:
-    Label:
-        text : "Please enter valid information"
-        size_hint : 0.2, 0.1
-        pos_hint : {"x" : 0.3, "top" : 0.8}
+<MainScreen>:
+    name: "main"
