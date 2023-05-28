@@ -1,0 +1,32 @@
+import folium
+from branca.element import Figure
+from kivymd.app import MDApp
+from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
+
+class Map(Screen):
+    def __init__(self,**kwargs):
+        fig3 = Figure(width = 550,
+                      height = 350)
+
+        m3 = folium.Map(location = [28.644800, 77.216721],
+                        tiles = 'cartodbpositron',
+                        zoom_start = 11)
+
+        fig3.add_child(m3)
+
+        folium.Marker(location = [28.695800, 77.244721],
+                      popup = 'Default popup Marker1',
+                      tooltip = 'Click here to see Popup').add_to(m3)
+        folium.Marker(location = [28.645800, 77.214721],
+                      popup = '<strong>Marker3</strong>',
+                      tooltip = '<strong>Click here to see Popup</strong>').add_to(m3)
+        folium.Marker(location  =[28.655800, 77.274721],
+                      popup = '<h3 style="color:green;">Marker2</h3>',
+                      tooltip = '<strong>Click here to see Popup</strong>').add_to(m3)
+
+class MainApp(MDApp):
+    def build(self):
+        return Map()
+
+MainApp().run()

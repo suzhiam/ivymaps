@@ -38,7 +38,7 @@ class loginWindow(Screen):
         if self.email.text not in users['Email'].unique():
             popFun()
         else:
-            sm.current = 'logdata'
+            sm.current = 'Logdata'
             self.email.text = ""
             self.pwd.text = ""
 
@@ -76,7 +76,7 @@ sm.add_widget(mapWindow(name = 'Map'))
 
 class MainApp(App):
         def build(self):
-                return kv
+                return sm
 
 if __name__=="__main__":
     MainApp().run()

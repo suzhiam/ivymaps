@@ -1,0 +1,45 @@
+from kivy.app import App
+from kivy_garden.mapview import MapView
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+import requests
+
+class MapApp(App):
+    def build(self):
+        # Create a box layout for the UI
+        layout = BoxLayout(orientation='vertical')
+
+        # Create a text input for the user to enter a location
+        self.location_input = TextInput(hint_text='Enter a location')
+
+        # Create a button to search for the entered location
+        search_button = Button(text='Search')
+        search_button.bind(on_press=self.search_location)
+
+        # Create a MapView widget
+        self.mapview = MapView(zoom=11, lat=37.7749, lon=-122.4194)
+
+        # Add the UI elements to the layout
+        layout.add_widget(self.location_input)
+        layout.add_widget(search_button)
+        layout.add_widget(self.mapview)
+
+        return layout
+
+    def search_location(self, instance):
+        # Get the location input from the user
+        location = self.location_input.text
+
+        # Use a geocoding API to convert the location to latitude and longitude coordinates
+        url = 'https://nominatim.openstreetmap.org/search?q={}&format=json'.format(location)
+        response = requests.get(url).json()
+        if len(response) > 0:
+            lat = float(response[0]['lat'])
+            lon = float(response[0]['lon'])
+
+            # Update the MapView widget to center on the searched location
+            self.mapview.center_on(lat, lon)
+
+if __name__ == '__main__':
+    MapApp().run()
